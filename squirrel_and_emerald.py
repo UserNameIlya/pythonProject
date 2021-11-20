@@ -9,4 +9,3 @@ def squirrel(N):
 
     return (int(str(fact(N))[0]))
 
-print(squirrel(0))
