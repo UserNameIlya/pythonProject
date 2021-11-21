@@ -1,6 +1,8 @@
 def odometer(list):
-
-    if len(list) == 2:
-       return list[0] * list[1]
-    else:
-        return list[0] * list[1] + odometer(list[2:])
+    distance = 0
+    for i in range(0,len(list),2):
+        if i == 0:
+            distance = list[i] * list[i+1]
+        else:
+            distance = distance + list[i] * (list[i+1] - list[i-1])
+    return distance
