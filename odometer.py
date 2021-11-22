@@ -6,3 +6,4 @@ def odometer(list):
         else:
             distance = distance + list[i] * (list[i+1] - list[i-1])
     return distance
+
