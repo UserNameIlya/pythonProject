@@ -1,65 +1,61 @@
-def ConquestCampaign(N: int, M: int, L: int, battalion: list):
-    # 1. Создаем поле размером N*M
-    map_city = [[0 for x in range(M)] for y in range(N)]
-    count_day = 0
+def ConquestCampaign (N, M, L, battalion):
 
-    # 2. Определяем точки высадки
+    # Создаем площадь
+    kingdom_s = []
+    for i in range(N):
+        kingdom = []
+        for j in range(M):
+            kingdom.append(0)
+        kingdom_s.append(kingdom)
 
-    # 2.1 Получаем координаты первоночальной высадки групп  для каждой группы
-    def get_start_position(battalion):
-        x = battalion[0]
-        y = battalion[1]
-        return x, y
 
-    # 2.2 Проверяем, что ячейка пустая
-    def check_position(x, y):
-        if map_city[x][y] == 0:
+    #Получаем  координаты для высадки
+    def get_coordinat(L,battalion):
+        for a in range(L):
+            coordinate_x = battalion[a * 2]
+            coordinate_y = battalion[a * 2 + 1]
+            kingdom_s[coordinate_x - 1][coordinate_y - 1] = 1
+        return kingdom_s
+
+    # Поле пустое?
+    def check_full(x,y):
+        if kingdom_s[x][y] == 0:
             return True
         else:
             return False
+    # Считаем дни
+   #  Мы уже были ранее в этом поле
+    def check_priviosly(x,y):
+        if kingdom_s[x][y] == 1:
+            return True
 
-    # 2.3 Записываем координаты позиций высдаки
-    def start_position(x, y):
-        map_city[x][y] = 1
+   # Заполняем окрестноси
 
-    # 2.4 Убираем отработанные координаты
-    def del_coordinat(battalion):
-        new_list = battalion[2:]
-        return new_list
+    def get_neighbors(x,y):
+        if y > 0 and kingdom_s[x][y - 1] == 0:
+            kingdom_s[x][y - 1] = 1
+        if y + 1 < M and kingdom_s[x][y + 1] == 0:
+            kingdom_s[x][y + 1] = 1
+        if x > 0 and kingdom_s[x - 1][y] == 0:
+            kingdom_s[x - 1][y] = 1
+        if x + 1 < N and kingdom_s[x + 1][y] == 0:
+            kingdom_s[x + 1][y] = 1
+        return kingdom_s
 
-    # 3 Высадка
-    def normandia(L, battalion):
-        for i in range(L):
-            pos_x, pos_y = get_start_position(battalion)
-            if check_position(pos_x, pos_y):
-                start_position(pos_x, pos_y)
-            battalion = del_coordinat(battalion)
+    get_coordinat(L, battalion)
+    for x in range(N):
+        for y in range(M):
+            if check_full(x,y):
 
+            if check_priviosly(x,y):
+                kingdom_s[x][y] = 2
+                get_neighbors(x,y)
 
+    return kingdom_s
+    return day
 
-    normandia(L, battalion)
-    print(map_city)
-
-    # 4 Проверяем, что все поля захвачены. Возварщаем True если есть еще открытые поля иначе False
-    # def is_complete(map_city):
-    #     count_open_position = 0
-    #     for y in range(M):
-    #         count_open_position = +1 if 0 in map_city[x] else 0
-    #     if count_open_position > 0:
-    #         return False
-    #     else:
-    #         return True
-
-    # if is_complete(map_city):
-    #     # все поля захвачены
-    #     pass
-    # else:
-    #     #не все поля захвачены
-    #     #нужно пройти цикл захвата
-    #     #увеличиваем день на один
-    #     pass
-
-
-
-
-ConquestCampaign(3, 4, 2, (1, 2, 2, 3))
+N = 3
+M = 4
+L = 2
+battalion = [2, 2, 3, 4]
+print(ConquestCampaign(N, M, L, battalion))
