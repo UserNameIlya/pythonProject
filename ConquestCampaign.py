@@ -1,5 +1,6 @@
-def ConquestCampaign (N, M, L, battalion):
+def ConquestCampaign(N, M, L, battalion):
 
+    day = 1
     # Создаем площадь
     kingdom_s = []
     for i in range(N):
@@ -7,7 +8,6 @@ def ConquestCampaign (N, M, L, battalion):
         for j in range(M):
             kingdom.append(0)
         kingdom_s.append(kingdom)
-
 
     #Получаем  координаты для высадки
     def get_coordinat(L,battalion):
@@ -23,8 +23,8 @@ def ConquestCampaign (N, M, L, battalion):
             return True
         else:
             return False
-    # Считаем дни
-   #  Мы уже были ранее в этом поле
+
+    #  Мы уже были ранее в этом поле
     def check_priviosly(x,y):
         if kingdom_s[x][y] == 1:
             return True
@@ -43,19 +43,27 @@ def ConquestCampaign (N, M, L, battalion):
         return kingdom_s
 
     get_coordinat(L, battalion)
-    for x in range(N):
-        for y in range(M):
-            if check_full(x,y):
 
-            if check_priviosly(x,y):
-                kingdom_s[x][y] = 2
-                get_neighbors(x,y)
+    def field(N,M,kingdom_s):
+        for x in range(N):
+            for y in range(M):
+                 if check_full(x,y):
+                    continue
+                 if check_priviosly(x,y):
+                    kingdom_s[x][y] = 2
+                    get_neighbors(x,y)
+        return kingdom_s
 
-    return kingdom_s
-    return day
-
+    for i in range(N):
+        for j in range(M):
+            if kingdom_s[i][j] == 0:
+                day +=1
+                field(N,M,kingdom_s)
+            else:
+                return day
 N = 3
 M = 4
 L = 2
 battalion = [2, 2, 3, 4]
+
 print(ConquestCampaign(N, M, L, battalion))
