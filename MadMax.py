@@ -9,10 +9,10 @@ def MadMax(N,Tele:list):
 
     def reverse_list(N,Tele):
         def get_center_index(N):
-            center_index = N//2
+            center_index = N// 2
             return center_index
 
-        center_list = get_center_index(Tele)
+        center_list = get_center_index(N)
 
         for i in range(1,N-center_list):
             for k in range(center_list,N-i):
