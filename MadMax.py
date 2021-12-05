@@ -22,4 +22,4 @@ def MadMax(N,Tele:list):
 
     bubble_sort(N,Tele)
     reverse_list(N,Tele)
-    return Tele
+    return Tel

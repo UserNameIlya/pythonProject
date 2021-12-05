@@ -19,4 +19,3 @@ def SynchronizingTables(N,ids:list,salary:list):
     for new_i in range(N):
         new_salary[tuple_stuff[new_i][0]] = tuple_salary[new_i][1]
     return new_salary
-SynchronizingTables(4,[50, 1,1, 1024],[20000, 90000,50000, 100000])
