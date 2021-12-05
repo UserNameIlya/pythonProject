@@ -8,13 +8,15 @@ def SynchronizingTables(N,ids:list,salary:list):
     for number_salary in range(N):
         tuple_salary.append((number_salary, salary[number_salary]))
 
-    for i in range(N-1):
-        if tuple_stuff[i][1] > tuple_stuff[i+1][1]:
-            tuple_stuff[i],tuple_stuff[i+1] = tuple_stuff[i+1],tuple_stuff[i]
+    for pos in range(N-1):
+        for k in range(pos+1,N):
+            if tuple_stuff[k][1] < tuple_stuff[pos][1]:
+                tuple_stuff[k],tuple_stuff[pos] = tuple_stuff[pos],tuple_stuff[k]
 
-    for i in range(N-1):
-        if tuple_salary[i][1] > tuple_salary[i+1][1]:
-            tuple_salary[i],tuple_salary[i+1] = tuple_salary[i+1],tuple_salary[i]
+    for pos in range(N-1):
+        for k in range(pos+1,N):
+            if tuple_salary[k][1] < tuple_salary[pos][1]:
+                tuple_salary[k], tuple_salary[pos] = tuple_salary[pos], tuple_salary[k]
 
     for new_i in range(N):
         new_salary[tuple_stuff[new_i][0]] = tuple_salary[new_i][1]
